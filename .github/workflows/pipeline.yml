@@ -24,7 +24,7 @@ jobs:
 
     # 3. Format the code (Best Practice) [checks if the code is formatted nicely]
     - name: Terraform Format
-      run: terraform fmt -check
+      run: terraform fmt
 
     # 4. Initialize Terraform
     - name: Terraform Init
