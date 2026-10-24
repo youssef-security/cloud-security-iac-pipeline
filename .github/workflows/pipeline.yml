@@ -1,0 +1,35 @@
+name: 'Terraform DevSecOps Pipeline'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  terraform-plan:
+    name: 'Terraform Dry Run'
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Get the code from the repo
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # 2. Install Terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+
+    # 3. Format the code (Best Practice) [checks if the code is formatted nicely]
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    # 4. Initialize Terraform
+    - name: Terraform Init
+      run: terraform init
+
+    # 5. Dry Run (Plan) [I see you want to create this firewall rule. Here is exactly what I would do.]
+    - name: Terraform Plan
+      run: terraform plan -no-color
